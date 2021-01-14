@@ -23,4 +23,7 @@ Route::resource('pelanggan', 'pelangganController')->middleware('auth');
 Route::resource('penjualan', 'penjualanController')->middleware('auth');
 // DetailPenjualan
 Route::resource('detail', 'detailController')->middleware('auth');
+// USer
+Route::resource('users', 'usersController')->middleware('auth');
+
 

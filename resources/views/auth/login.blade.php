@@ -4,7 +4,7 @@
 
 <div class="login-box">
   <div class="login-logo">
-    xx<a href="{{ url('/') }}"> <b>{{ config('app.name') }}</b> </a>
+    <a href="{{ url('/') }}"> <b>{{ config('app.name') }}</b> </a>
     
   </div>
   <!-- /.login-logo -->

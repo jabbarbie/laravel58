@@ -19,7 +19,8 @@ class detailController extends Controller
      */
     public function index()
     {
-        //
+        $datapenjualan = Penjualan::with(['pelanggan'])->orderBy('id', 'DESC')->get(); 
+        return view('detail.index', ['penjualan' => $datapenjualan]);
     }
 
     /**
@@ -118,6 +119,18 @@ class detailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $detail     = Detail::find($id);
+        $penjualan  = Penjualan::where('id_penjualan', $detail->id_penjualan);
+        $pelanggan  = Pelanggan::where('id_penjualan', $penjualan->id_pelanggan);
+
+        
+        // Hapus juga untuk table detail
+        $detail     = Detail::where('id_penjualan', $id);
+        
+        if ($penjualan) $penjualan->delete();
+        if ($detail) $detail->delete();
+        if ($pelanggan) $pelanggan->delete();
+        
+        return redirect()->route('detail.index');
     }
 }

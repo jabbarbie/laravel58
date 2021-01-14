@@ -56,7 +56,10 @@ class penjualanController extends Controller
         ];        
         $penjualan = Penjualan::create($datapenjualan);
 
-        return redirect()->route('detail.edit', $penjualan->id)
+        // return redirect()->route('detail.edit', $penjualan->id)
+        // ->with('success','Data berhasil ditambahkan');
+
+        return redirect()->route('penjualan.index')
             ->with('success','Data berhasil ditambahkan');
 
     }
@@ -81,8 +84,8 @@ class penjualanController extends Controller
      */
     public function edit($id)
     {
-
-
+        $data = Penjualan::find($id);
+        return view('penjualan.edit', ['penjualan' => $data]);
     }
 
     /**
@@ -94,7 +97,25 @@ class penjualanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data   = $request->validate([
+            'jenis_pembayaran' => 'required'
+        ]);
+        
+        $penjualan  = Penjualan::find($id);
+        // Ubah Format Tanggal ke Unix
+        // Agar dapat dibaca oleh system 
+        $tgl    = strtotime($request->tanggal_transaksi);
+        $tgl    = \Carbon\Carbon::createFromTimestamp($tgl)->toDateTimeString(); 
 
+        $penjualan->tanggal_transaksi   = $tgl;
+        $penjualan->jenis_pembayaran  = $request->jenis_pembayaran;
+
+        $penjualan->save();
+        // return redirect()->route('detail.edit', $penjualan->id)
+        // ->with('success','Data berhasil ditambahkan');
+
+        return redirect()->route('penjualan.index')
+            ->with('success','Data berhasil ditambahkan');
     }
 
     /**
