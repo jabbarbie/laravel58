@@ -26,6 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-blue.min.css') }}">
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">  
 
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -36,6 +37,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -185,8 +189,25 @@ desired effect
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/select2/dist/js/select2.min.js') }}"></script>
+<script>
+  $('#punyaDataTable').DataTable()
+  $(".iniselect2").select2()
+
+
+  $(".iniselect2").on('change', function(e){
+    const barangterpilih = $(".iniselect2 option:selected")
+    const databarang = barangterpilih[0].dataset
+
+    $("#nama_barang").val(databarang.nama)
+    $("#harga").val(databarang.harga)
+
+    $("#btntambah").removeClass("disabled")
+  })
+
+</script>
+
 </body>
 </html>

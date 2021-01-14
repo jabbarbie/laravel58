@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pelanggan;
 
 class pelangganController extends Controller
 {
@@ -13,7 +14,8 @@ class pelangganController extends Controller
      */
     public function index()
     {
-        //
+        $datapelanggan = pelanggan::all(); 
+        return view('pelanggan.index', ['pelanggan' => $datapelanggan]);
     }
 
     /**
@@ -23,7 +25,7 @@ class pelangganController extends Controller
      */
     public function create()
     {
-        //
+        return view('pelanggan.create');
     }
 
     /**
@@ -35,6 +37,14 @@ class pelangganController extends Controller
     public function store(Request $request)
     {
         //
+        $data   = $request->validate([
+            'nama'   => 'required',
+            'alamat' => ''
+        ]);
+
+        Pelanggan::create($data);
+        return redirect()->route('pelanggan.create')
+            ->with('success','Data berhasil ditambahkan');
     }
 
     /**
@@ -45,7 +55,9 @@ class pelangganController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Pelanggan::find($id);
+        return view('pelanggan.index', ['data' => $data]);
+
     }
 
     /**
@@ -57,6 +69,9 @@ class pelangganController extends Controller
     public function edit($id)
     {
         //
+        $data = Pelanggan::find($id);
+        return view('pelanggan.edit', ['pelanggan' => $data]);
+
     }
 
     /**
@@ -68,7 +83,13 @@ class pelangganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pelanggan = Pelanggan::find($id);
+        $pelanggan->nama = $request->nama;
+        $pelanggan->alamat = $request->alamat;
+
+
+        $pelanggan->save();
+        return redirect()->route('pelanggan.index');
     }
 
     /**
@@ -79,6 +100,9 @@ class pelangganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pelanggan = Pelanggan::find($id);
+        $pelanggan->delete();
+        
+        return redirect()->route('pelanggan.index');
     }
 }

@@ -10,13 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes(['register' => false]);
+
 // Dashboard
-Route::get('/', 'dashboardController@index');
+Route::get('/', 'dashboardController@index')->middleware('auth');
 // Sepatu
-Route::resource('sepatu', 'sepatuController');
+Route::resource('sepatu', 'sepatuController')->middleware('auth');
 // Pelanggan
-Route::resource('pelanggan', 'pelangganController');
+Route::resource('pelanggan', 'pelangganController')->middleware('auth');
 // Penjualan
-Route::resource('penjualan', 'penjualanController');
+Route::resource('penjualan', 'penjualanController')->middleware('auth');
 // DetailPenjualan
-Route::resource('detail', 'detailController');
+Route::resource('detail', 'detailController')->middleware('auth');
+
