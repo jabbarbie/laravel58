@@ -17,11 +17,17 @@
     <div class="navbar-custom-menu">
     <ul class="nav navbar-nav">
 
-        <!-- Tasks: style can be found in dropdown.less -->
+        <!-- untuk logout -->
         <li class="dropdown tasks-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="hidden-xs">Logout</span>
-        </a>
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" onclick="event.preventDefault();document.getElementById('form-logout').submit();">
+                <span class="hidden-xs">Logout</span>
+            </a>
+            
+            <form id="form-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+
+      
         
         </li>
        
